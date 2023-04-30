@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_app/data/models/categories.dart';
 import 'package:food_app/utils/themes.dart';
 
 class HomePage extends StatelessWidget {
@@ -38,15 +39,100 @@ class HomePage extends StatelessWidget {
             flex: 2,
             child: _Search(size: size),
           ),
-          const Spacer(),
           Flexible(
-            flex: 16,
+            flex: 5,
+            fit: FlexFit.tight,
+            child: _CategoriesView(size: size),
+          ),
+          Flexible(
+            flex: 13,
             child: Container(
               color: Colors.redAccent,
             ),
           )
         ],
       )),
+    );
+  }
+}
+
+class _CategoriesView extends StatefulWidget {
+  const _CategoriesView({required this.size});
+
+  final Size size;
+
+  @override
+  _CategoriesViewState createState() => _CategoriesViewState();
+}
+
+class _CategoriesViewState extends State<_CategoriesView> {
+  int _selectIndex = 0;
+
+  _CategoriesViewState();
+  @override
+  Widget build(BuildContext context) {
+    Size size = widget.size;
+    return ListView.builder(
+      // shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemCount: categories.length,
+      itemBuilder: (context, index) {
+        return FractionallySizedBox(
+          heightFactor: 0.65,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _selectIndex = index;
+              });
+            },
+            child: Container(
+              width: size.width / 6.8,
+              margin: EdgeInsets.symmetric(horizontal: size.width * 0.03),
+              decoration: BoxDecoration(
+                color: _selectIndex == index ? kColorPrimary : kColorWhite,
+                borderRadius: const BorderRadius.horizontal(
+                  left: Radius.circular(29),
+                  right: Radius.circular(29),
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color.fromRGBO(254, 114, 76, 0.251),
+                    blurRadius: 30,
+                    offset: Offset(0, 20),
+                  )
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                        image: DecorationImage(
+                          image: AssetImage(categories[index].image),
+                        ),
+                        border: Border.all(color: kColorWhite)),
+                  ),
+                  Text(
+                    categories[index].title,
+                    style: PrimaryFont.medium(11).copyWith(
+                        color: _selectIndex == index
+                            ? kColorWhite
+                            : const Color(0XFF67666D)),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -206,5 +292,14 @@ class _Header extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class CategoryItem extends StatelessWidget {
+  const CategoryItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
