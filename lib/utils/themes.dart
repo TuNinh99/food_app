@@ -10,6 +10,8 @@ const Color kColorDarklessGray = Color(0XFF9AA0B4);
 const Color kColorGray = Color(0XFF8A8E9B);
 const Color kColorLighterGray = Color(0XFF67666D);
 const Color kColorLightGray = Color.fromARGB(255, 10, 12, 19);
+const Color kColorYellow = Color(0XFFFFC529);
+const Color kColorDrakGreen = Color(0XFF029094);
 
 class PrimaryFont {
   static String fontFamily = 'Sofia Pro';
