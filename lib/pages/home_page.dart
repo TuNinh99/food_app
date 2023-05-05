@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/data/models/categories.dart';
+import 'package:food_app/data/models/ratingInfo.dart';
 import 'package:food_app/data/models/restaurants.dart';
 import 'package:food_app/utils/themes.dart';
+
+import '../data/models/foods.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,96 +15,258 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: ListView(
           children: [
-            Flexible(
-              flex: 2,
-              child: _Header(size: size),
+            _Header(size: size),
+            const SizedBox(
+              height: 30,
             ),
-            const Spacer(),
-            Flexible(
-              flex: 3,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
-                child: FractionallySizedBox(
-                  widthFactor: 0.9,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'What would you like to order',
-                    style: PrimaryFont.semiBold(30)
-                        .copyWith(height: 1.3, color: kColorLightBlack),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
+              child: FractionallySizedBox(
+                widthFactor: 0.9,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'What would you like to order',
+                  style: PrimaryFont.semiBold(30).copyWith(
+                    height: 1,
+                    color: kColorLightBlack,
                   ),
                 ),
               ),
             ),
-            const Spacer(),
-            Flexible(
-              flex: 2,
-              child: _Search(size: size),
+            const SizedBox(
+              height: 20,
             ),
-            Flexible(
-              flex: 5,
-              fit: FlexFit.tight,
-              child: _CategoriesView(size: size),
+            _Search(size: size),
+            const SizedBox(
+              height: 30,
             ),
-            Flexible(
-              flex: 1,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Featured Restaurants',
-                        style: PrimaryFont.semiBold(18)
-                            .copyWith(color: kColorLightBlack, height: 1.3),
+            _CategoriesView(size: size),
+            const SizedBox(
+              height: 30,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      'Featured Restaurants',
+                      style: PrimaryFont.semiBold(18)
+                          .copyWith(color: kColorLightBlack, height: 1.3),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'View All ',
+                        style: PrimaryFont.medium(13)
+                            .copyWith(color: kColorPrimary, height: 1.2),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'View All ',
-                          style: PrimaryFont.medium(13)
-                              .copyWith(color: kColorPrimary, height: 1.2),
-                        ),
-                        SvgPicture.asset('assets/images/arrow_right.svg')
-                      ],
-                    ),
-                  ],
-                ),
+                      SvgPicture.asset('assets/images/arrow_right.svg')
+                    ],
+                  ),
+                ],
               ),
             ),
-            Flexible(
-              flex: 8,
-              // fit: FlexFit.tight,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: size.width * 0.075, vertical: 16),
-                child: ListView.builder(
-                  // shrinkWrap: true,
-                  clipBehavior: Clip.none,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: restaurants.length,
-                  itemBuilder: (context, index) {
-                    return _RestaurantsView(
-                      size: size,
-                      restaurant: restaurants[index],
-                    );
-                  },
-                ),
+            const SizedBox(
+              height: 15,
+            ),
+            Container(
+              height: 229,
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.075),
+              child: ListView.builder(
+                // shrinkWrap: true,
+                clipBehavior: Clip.none,
+                scrollDirection: Axis.horizontal,
+                itemCount: restaurants.length,
+                itemBuilder: (context, index) {
+                  return _RestaurantsView(
+                    size: size,
+                    restaurant: restaurants[index],
+                  );
+                },
               ),
             ),
-            // Flexible(
-            //   flex: 3,
-            //   child: Container(
-            //     color: Colors.redAccent,
-            //   ),
-            // )
+
+            const SizedBox(
+              height: 24,
+            ),
+
+            // <---------------------------- Popular Items ---------------------------->
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: size.width * 0.075),
+              child: Text(
+                'Popular Items',
+                style: PrimaryFont.semiBold(18)
+                    .copyWith(color: kColorBlack, height: 1),
+              ),
+            ),
+
+            const SizedBox(
+              height: 15,
+            ),
+
+            _PopularItems(size: size),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _PopularItems extends StatelessWidget {
+  const _PopularItems({
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 216,
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
+      child: ListView.builder(
+        clipBehavior: Clip.none,
+        scrollDirection: Axis.horizontal,
+        itemCount: popularItems.length,
+        itemBuilder: (context, index) {
+          final Food food = popularItems[index];
+          String price = food.price.toStringAsFixed(2);
+          return Container(
+            height: 215,
+            width: size.width * 0.45,
+            margin: const EdgeInsets.only(right: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Image.asset(
+                        food.image,
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Container(
+                                width: 58,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 7,
+                                  vertical: 4,
+                                ),
+                                decoration: const BoxDecoration(
+                                  color: kColorWhite,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(0, 6),
+                                      blurRadius: 23,
+                                      color: Color.fromRGBO(254, 76, 114, 0.2),
+                                    ),
+                                  ],
+                                ),
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: '\$',
+                                    style: PrimaryFont.medium(11).copyWith(
+                                      color: kColorPrimary,
+                                      height: 1.1,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: price,
+                                        style:
+                                            PrimaryFont.semiBold(20).copyWith(
+                                          color: kColorBlack,
+                                          height: 1.1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Spacer(
+                              flex: 5,
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: CircleAvatar(
+                                radius: 14.5,
+                                backgroundColor: food.isFavourite
+                                    ? kColorPrimary
+                                    : const Color.fromRGBO(255, 255, 255, 0.5),
+                                child: SvgPicture.asset(
+                                  'assets/images/ic_heart.svg',
+                                ),
+                              ),
+                            ),
+                            const Spacer()
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        left: 10,
+                        bottom: -12,
+                        child: Container(
+                          padding: const EdgeInsets.all(0),
+                          child: _RatingBox(ratingInfo: food.ratingInfo),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // const SizedBox(
+                //   height: 17,
+                // ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 17),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            food.name,
+                            style: PrimaryFont.semiBold(14).copyWith(
+                              color: kColorBlack,
+                              height: 1,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            food.description,
+                            style: PrimaryFont.light(12).copyWith(
+                              color: const Color(0XFF9796A1),
+                              height: 1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -110,7 +275,7 @@ class HomePage extends StatelessWidget {
 class _RestaurantsView extends StatelessWidget {
   _RestaurantsView({required this.size, required this.restaurant});
 
-  final size;
+  final Size size;
   Restaurant restaurant;
 
   @override
@@ -153,47 +318,7 @@ class _RestaurantsView extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 9.0, vertical: 7.5),
-                        decoration: const BoxDecoration(
-                          color: kColorWhite,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 5.8),
-                              blurRadius: 23,
-                              color: Color.fromRGBO(254, 114, 76, 0.2),
-                            )
-                          ],
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              restaurant.rate.toString(),
-                              style: PrimaryFont.semiBold(11.7)
-                                  .copyWith(color: kColorBlack, height: 1.2),
-                            ),
-                            const Icon(
-                              Icons.star,
-                              color: kColorYellow,
-                              size: 15,
-                            ),
-                            const SizedBox(
-                              width: 2,
-                            ),
-                            Text(
-                              '(${restaurant.numberRate}+)',
-                              style: PrimaryFont.light(8.2).copyWith(
-                                color: const Color(0XFF9796A1),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      _RatingBox(ratingInfo: restaurant.ratingInfo),
                       Container(
                         decoration: const BoxDecoration(
                           boxShadow: [
@@ -297,6 +422,58 @@ class _RestaurantsView extends StatelessWidget {
   }
 }
 
+class _RatingBox extends StatelessWidget {
+  const _RatingBox({
+    required this.ratingInfo,
+  });
+
+  final RatingInfo ratingInfo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 7.5),
+      decoration: const BoxDecoration(
+        color: kColorWhite,
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
+        ),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 5.8),
+            blurRadius: 23,
+            color: Color.fromRGBO(254, 114, 76, 0.2),
+          )
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            ratingInfo.rate.toString(),
+            style: PrimaryFont.semiBold(11.7)
+                .copyWith(color: kColorBlack, height: 1.2),
+          ),
+          const Icon(
+            Icons.star,
+            color: kColorYellow,
+            size: 15,
+          ),
+          const SizedBox(
+            width: 2,
+          ),
+          Text(
+            '(${ratingInfo.numberRate}+)',
+            style: PrimaryFont.light(8.2).copyWith(
+              color: const Color(0XFF9796A1),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class _Tag extends StatelessWidget {
   const _Tag({
     required this.tagName,
@@ -343,15 +520,16 @@ class _CategoriesViewState extends State<_CategoriesView> {
   @override
   Widget build(BuildContext context) {
     Size size = widget.size;
-    return ListView.builder(
-      // shrinkWrap: true,
-      clipBehavior: Clip.none,
-      scrollDirection: Axis.horizontal,
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        return FractionallySizedBox(
-          heightFactor: 0.68,
-          child: GestureDetector(
+    return Container(
+      width: double.infinity,
+      height: 100,
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.045),
+      child: ListView.builder(
+        clipBehavior: Clip.none,
+        scrollDirection: Axis.horizontal,
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
             onTap: () {
               setState(() {
                 _selectIndex = index;
@@ -359,7 +537,7 @@ class _CategoriesViewState extends State<_CategoriesView> {
             },
             child: Container(
               width: size.width / 6.5,
-              margin: EdgeInsets.symmetric(horizontal: size.width * 0.03),
+              margin: EdgeInsets.only(right: size.width * 0.06),
               decoration: BoxDecoration(
                 color: _selectIndex == index ? kColorPrimary : kColorWhite,
                 borderRadius: const BorderRadius.horizontal(
@@ -383,20 +561,22 @@ class _CategoriesViewState extends State<_CategoriesView> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(25),
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage(categories[index].image),
-                        ),
-                        border: Border.all(color: kColorWhite)),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(25),
+                      ),
+                      image: DecorationImage(
+                        image: AssetImage(categories[index].image),
+                      ),
+                      border: Border.all(color: kColorWhite),
+                    ),
                   ),
                   Text(
                     categories[index].title,
                     style: PrimaryFont.medium(11).copyWith(
-                        color: _selectIndex == index
-                            ? kColorWhite
-                            : const Color(0XFF67666D)),
+                      color: _selectIndex == index
+                          ? kColorWhite
+                          : const Color(0XFF67666D),
+                    ),
                   ),
                   const SizedBox(
                     height: 8,
@@ -404,9 +584,9 @@ class _CategoriesViewState extends State<_CategoriesView> {
                 ],
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -420,12 +600,12 @@ class _Search extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
       child: Row(
         children: [
-          Flexible(
-            flex: 15,
+          Expanded(
+            flex: 14,
             child: TextField(
               decoration: InputDecoration(
                 filled: true,
@@ -450,9 +630,11 @@ class _Search extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Flexible(
-            flex: 4,
+          Expanded(
+            flex: 3,
             child: Container(
+              width: 54,
+              height: 54,
               decoration: const BoxDecoration(
                 color: kColorWhite,
                 image: DecorationImage(
@@ -465,7 +647,8 @@ class _Search extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Color.fromRGBO(233, 237, 242, 0.5),
-                    offset: Offset(2, 3),
+                    offset: Offset(0, 15),
+                    blurRadius: 30,
                   ),
                 ],
               ),
@@ -486,79 +669,68 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      height: 45,
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: FractionallySizedBox(
-              heightFactor: 0.9,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: kColorWhite,
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/line.png'),
-                    // fit: BoxFit.fill,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16.0),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color.fromRGBO(211, 209, 216, 0.3),
-                        offset: Offset(5, 10),
-                        blurRadius: 20),
-                  ],
+            child: Container(
+              decoration: const BoxDecoration(
+                color: kColorWhite,
+                image: DecorationImage(
+                  image: AssetImage('assets/images/line.png'),
+                  // fit: BoxFit.fill,
                 ),
-              ),
-            ),
-          ),
-          // const Spacer(),
-          Flexible(
-            flex: 4,
-            child: FractionallySizedBox(
-              heightFactor: 0.6,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Deliver to ',
-                          style: PrimaryFont.medium(14)
-                              .copyWith(color: kColorDarkerGray, height: 1.22),
-                        ),
-                        SvgPicture.asset('assets/images/arrow_down.svg'),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      '4102  Pretty View Lane',
-                      style: PrimaryFont.medium(15)
-                          .copyWith(color: kColorPrimary, height: 1.22),
-                    ),
-                  ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16.0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(211, 209, 216, 0.3),
+                      offset: Offset(5, 10),
+                      blurRadius: 20),
                 ],
               ),
             ),
           ),
-          // const Spacer(),
+          const Spacer(),
+          Column(
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Deliver to ',
+                      style: PrimaryFont.medium(14)
+                          .copyWith(color: kColorDarkerGray, height: 1.22),
+                    ),
+                    SvgPicture.asset('assets/images/arrow_down.svg'),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  '4102  Pretty View Lane',
+                  style: PrimaryFont.medium(15)
+                      .copyWith(color: kColorPrimary, height: 1.22),
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
           Expanded(
-            child: FractionallySizedBox(
-              heightFactor: 0.9,
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/avatar.png'),
-                    fit: BoxFit.fill,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16.0),
-                  ),
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/avatar.png'),
+                  fit: BoxFit.fill,
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16.0),
                 ),
               ),
             ),
