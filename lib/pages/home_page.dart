@@ -4,7 +4,7 @@ import 'package:food_app/data/models/categories.dart';
 import 'package:food_app/data/models/ratingInfo.dart';
 import 'package:food_app/data/models/restaurants.dart';
 import 'package:food_app/utils/themes.dart';
-
+import 'package:food_app/widgets/menu.dart';
 import '../data/models/foods.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,18 +13,31 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final orientation = MediaQuery.of(context).orientation;
+
     return Scaffold(
+      drawer: const Menu(),
       body: SafeArea(
         child: ListView(
           children: [
+            Visibility(
+              visible: orientation == Orientation.portrait ? false : true,
+              child: const SizedBox(
+                height: 10,
+              ),
+            ),
+
+            // <---------------------------- Header ---------------------------->
             _Header(size: size),
             const SizedBox(
               height: 30,
             ),
+
+            // <---------------------------- Title ---------------------------->
             Container(
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
               child: FractionallySizedBox(
-                widthFactor: 0.9,
+                widthFactor: size.width >= 400 ? 0.8 : 0.9,
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'What would you like to order',
@@ -38,14 +51,20 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+
+            // <---------------------------- Search ---------------------------->
             _Search(size: size),
             const SizedBox(
               height: 30,
             ),
+
+            // <---------------------------- Categories View ---------------------------->
             _CategoriesView(size: size),
             const SizedBox(
               height: 30,
             ),
+
+            // <---------------------------- Text: Featured Restaurants ---------------------------->
             Container(
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
               child: Row(
@@ -75,11 +94,12 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
+
+            // <---------------------------- RestaurantsView View ---------------------------->
             Container(
               height: 229,
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.075),
               child: ListView.builder(
-                // shrinkWrap: true,
                 clipBehavior: Clip.none,
                 scrollDirection: Axis.horizontal,
                 itemCount: restaurants.length,
@@ -140,7 +160,7 @@ class _PopularItems extends StatelessWidget {
           String price = food.price.toStringAsFixed(2);
           return Container(
             height: 215,
-            width: size.width * 0.45,
+            width: 200,
             margin: const EdgeInsets.only(right: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,65 +178,55 @@ class _PopularItems extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                              flex: 5,
-                              child: Container(
-                                width: 58,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 7,
-                                  vertical: 4,
+                            Container(
+                              width: 62,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 7,
+                                vertical: 4,
+                              ),
+                              decoration: const BoxDecoration(
+                                color: kColorWhite,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
                                 ),
-                                decoration: const BoxDecoration(
-                                  color: kColorWhite,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(0, 6),
+                                    blurRadius: 23,
+                                    color: Color.fromRGBO(254, 76, 114, 0.2),
                                   ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(0, 6),
-                                      blurRadius: 23,
-                                      color: Color.fromRGBO(254, 76, 114, 0.2),
+                                ],
+                              ),
+                              child: RichText(
+                                text: TextSpan(
+                                  text: '\$',
+                                  style: PrimaryFont.medium(11).copyWith(
+                                    color: kColorPrimary,
+                                    height: 1.1,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: price,
+                                      style: PrimaryFont.semiBold(20).copyWith(
+                                        color: kColorBlack,
+                                        height: 1.1,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '\$',
-                                    style: PrimaryFont.medium(11).copyWith(
-                                      color: kColorPrimary,
-                                      height: 1.1,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: price,
-                                        style:
-                                            PrimaryFont.semiBold(20).copyWith(
-                                          color: kColorBlack,
-                                          height: 1.1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
                             ),
-                            const Spacer(
-                              flex: 5,
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: CircleAvatar(
-                                radius: 14.5,
-                                backgroundColor: food.isFavourite
-                                    ? kColorPrimary
-                                    : const Color.fromRGBO(255, 255, 255, 0.5),
-                                child: SvgPicture.asset(
-                                  'assets/images/ic_heart.svg',
-                                ),
+                            CircleAvatar(
+                              radius: 14.5,
+                              backgroundColor: food.isFavourite
+                                  ? kColorPrimary
+                                  : const Color.fromRGBO(255, 255, 255, 0.5),
+                              child: SvgPicture.asset(
+                                'assets/images/ic_heart.svg',
                               ),
                             ),
-                            const Spacer()
                           ],
                         ),
                       ),
@@ -231,9 +241,6 @@ class _PopularItems extends StatelessWidget {
                     ],
                   ),
                 ),
-                // const SizedBox(
-                //   height: 17,
-                // ),
                 Expanded(
                   flex: 2,
                   child: Padding(
@@ -281,8 +288,8 @@ class _RestaurantsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 266,
       margin: const EdgeInsets.only(right: 15),
-      width: size.width * 0.7,
       decoration: const BoxDecoration(
         color: kColorWhite,
         borderRadius: BorderRadius.all(
@@ -523,7 +530,7 @@ class _CategoriesViewState extends State<_CategoriesView> {
     return Container(
       width: double.infinity,
       height: 100,
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.045),
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
       child: ListView.builder(
         clipBehavior: Clip.none,
         scrollDirection: Axis.horizontal,
@@ -536,7 +543,7 @@ class _CategoriesViewState extends State<_CategoriesView> {
               });
             },
             child: Container(
-              width: size.width / 6.5,
+              width: 59,
               margin: EdgeInsets.only(right: size.width * 0.06),
               decoration: BoxDecoration(
                 color: _selectIndex == index ? kColorPrimary : kColorWhite,
@@ -630,28 +637,25 @@ class _Search extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Expanded(
-            flex: 3,
-            child: Container(
-              width: 54,
-              height: 54,
-              decoration: const BoxDecoration(
-                color: kColorWhite,
-                image: DecorationImage(
-                  image: AssetImage('assets/images/ic_double_switch.png'),
-                  // fit: BoxFit.fill,
-                ),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(14.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(233, 237, 242, 0.5),
-                    offset: Offset(0, 15),
-                    blurRadius: 30,
-                  ),
-                ],
+          Container(
+            width: 54,
+            height: 54,
+            decoration: const BoxDecoration(
+              color: kColorWhite,
+              image: DecorationImage(
+                image: AssetImage('assets/images/ic_double_switch.png'),
+                // fit: BoxFit.fill,
               ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(14.0),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromRGBO(233, 237, 242, 0.5),
+                  offset: Offset(0, 15),
+                  blurRadius: 30,
+                ),
+              ],
             ),
           ),
         ],
@@ -675,23 +679,26 @@ class _Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: kColorWhite,
-                image: DecorationImage(
-                  image: AssetImage('assets/images/line.png'),
-                  // fit: BoxFit.fill,
+          ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 45, minHeight: 45),
+            child: GestureDetector(
+              onTap: () => Scaffold.of(context).openDrawer(),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: kColorWhite,
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/line.png'),
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16.0),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color.fromRGBO(211, 209, 216, 0.3),
+                        offset: Offset(5, 10),
+                        blurRadius: 20),
+                  ],
                 ),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16.0),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(211, 209, 216, 0.3),
-                      offset: Offset(5, 10),
-                      blurRadius: 20),
-                ],
               ),
             ),
           ),
@@ -722,7 +729,8 @@ class _Header extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Expanded(
+          ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 45, minHeight: 45),
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -732,6 +740,13 @@ class _Header extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(16.0),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 5),
+                    blurRadius: 16,
+                    color: Color.fromRGBO(255, 197, 41, 0.3),
+                  )
+                ],
               ),
             ),
           ),
