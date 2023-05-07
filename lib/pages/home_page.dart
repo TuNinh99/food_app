@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/data/models/categories.dart';
-import 'package:food_app/data/models/ratingInfo.dart';
 import 'package:food_app/data/models/restaurants.dart';
 import 'package:food_app/pages/food_details.dart';
 import 'package:food_app/utils/themes.dart';
+import 'package:food_app/widgets/food_cover.dart';
 import 'package:food_app/widgets/menu.dart';
+import 'package:food_app/widgets/rating_box.dart';
 import '../data/models/foods.dart';
 
 class HomePage extends StatelessWidget {
@@ -161,7 +162,7 @@ class _PopularItems extends StatelessWidget {
           String price = food.price.toStringAsFixed(2);
           return GestureDetector(
             onTap: () => Navigator.of(context).pushNamed(
-              '$FoodDetails',
+              '$FoodDetailsPage',
               arguments: popularItems[index],
             ),
             child: Container(
@@ -247,7 +248,7 @@ class _PopularItems extends StatelessWidget {
                           bottom: -12,
                           child: Container(
                             padding: const EdgeInsets.all(0),
-                            child: _RatingBox(ratingInfo: food.ratingInfo),
+                            child: RatingBox(ratingInfo: food.ratingInfo),
                           ),
                         ),
                       ],
@@ -320,45 +321,13 @@ class _RestaurantsView extends StatelessWidget {
         children: [
           Expanded(
             flex: 6,
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                  ),
-                  child: Image.asset(
-                    restaurant.cover,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _RatingBox(ratingInfo: restaurant.ratingInfo),
-                      Container(
-                        decoration: const BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 7),
-                              blurRadius: 15,
-                              color: Color.fromRGBO(254, 114, 76, 0.4),
-                            )
-                          ],
-                        ),
-                        child: CircleAvatar(
-                          backgroundColor: kColorPrimary,
-                          radius: 14,
-                          child: Image.asset('assets/images/ic_heart.png'),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
+            child: FoodCover(
+              image: restaurant.cover,
+              topLeftWidget: RatingBox(ratingInfo: restaurant.ratingInfo),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
             ),
           ),
           Expanded(
@@ -442,58 +411,6 @@ class _RestaurantsView extends StatelessWidget {
   }
 }
 
-class _RatingBox extends StatelessWidget {
-  const _RatingBox({
-    required this.ratingInfo,
-  });
-
-  final RatingInfo ratingInfo;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 7.5),
-      decoration: const BoxDecoration(
-        color: kColorWhite,
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
-        ),
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0, 5.8),
-            blurRadius: 23,
-            color: Color.fromRGBO(254, 114, 76, 0.2),
-          )
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            ratingInfo.rate.toString(),
-            style: PrimaryFont.semiBold(11.7)
-                .copyWith(color: kColorBlack, height: 1.2),
-          ),
-          const Icon(
-            Icons.star,
-            color: kColorYellow,
-            size: 15,
-          ),
-          const SizedBox(
-            width: 2,
-          ),
-          Text(
-            '(${ratingInfo.numberRate}+)',
-            style: PrimaryFont.light(8.2).copyWith(
-              color: const Color(0XFF9796A1),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 class _Tag extends StatelessWidget {
   const _Tag({
     required this.tagName,
@@ -504,7 +421,10 @@ class _Tag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.symmetric(
+        vertical: 5.0,
+        horizontal: 7.0,
+      ),
       margin: const EdgeInsets.only(right: 8),
       decoration: const BoxDecoration(
         color: Color(0XFFF6F6F6),
@@ -517,6 +437,8 @@ class _Tag extends StatelessWidget {
           tagName,
           style: PrimaryFont.light(12).copyWith(
             color: const Color(0XFF8A8E9B),
+            height: 1,
+            fontWeight: FontWeight.w400,
           ),
         ),
       ),

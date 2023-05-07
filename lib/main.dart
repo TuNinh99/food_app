@@ -29,10 +29,10 @@ class FoodApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const HomePage(),
-      initialRoute: '$FoodDetails',
+      initialRoute: '$HomePage',
       routes: {
         '$HomePage': (context) => const HomePage(),
-        '$FoodDetails': (context) => const FoodDetails()
+        '$FoodDetailsPage': (context) => const FoodDetailsPage()
       },
     );
   }

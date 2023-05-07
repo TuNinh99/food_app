@@ -20,14 +20,14 @@ final restaurants = [
     name: 'McDonald\'s',
     cover: 'assets/images/cover_1.png',
     deliveryTime: '10 - 15 mins',
-    tags: ['BURGER', 'CHICKEN', 'FAST FODD'],
+    tags: ['BURGER', 'CHICKEN', 'FAST FOOD'],
     ratingInfo: RatingInfo(rate: 4.5, numberRate: 25),
   ),
   Restaurant(
     name: 'Starbuck',
     cover: 'assets/images/cover_2.png',
     deliveryTime: '10 - 15 mins',
-    tags: ['BURGER', 'CHICKEN', 'FAST FODD'],
+    tags: ['BURGER', 'CHICKEN', 'FAST FOOD'],
     ratingInfo: RatingInfo(rate: 4.7, numberRate: 99),
   ),
 ];
