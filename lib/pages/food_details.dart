@@ -13,8 +13,8 @@ class FoodDetails extends StatefulWidget {
 class _FoodDetailsState extends State<FoodDetails> {
   @override
   Widget build(BuildContext context) {
-    final food = ModalRoute.of(context)!.settings.arguments as Food;
-    // final food = popularItems[2];
+    // final food = ModalRoute.of(context)!.settings.arguments as Food;
+    final food = popularItems[2];
 
     final Size size = MediaQuery.of(context).size;
 
@@ -53,30 +53,28 @@ class _FoodDetailsState extends State<FoodDetails> {
                             ),
                             child: Row(
                               children: [
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () => Navigator.pop(context),
-                                    child: Container(
-                                      width: 38,
-                                      height: 38,
-                                      decoration: const BoxDecoration(
-                                        color: kColorWhite,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(12),
+                                GestureDetector(
+                                  onTap: () => Navigator.pop(context),
+                                  child: Container(
+                                    width: 38,
+                                    height: 38,
+                                    decoration: const BoxDecoration(
+                                      color: kColorWhite,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(12),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          offset: Offset(5, 10),
+                                          blurRadius: 20,
+                                          color: Color.fromRGBO(
+                                              211, 209, 216, 0.3),
                                         ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            offset: Offset(5, 10),
-                                            blurRadius: 20,
-                                            color: Color.fromRGBO(
-                                                211, 209, 216, 0.3),
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Icon(
-                                        Icons.arrow_back_ios_new_rounded,
-                                        size: 15,
-                                      ),
+                                      ],
+                                    ),
+                                    child: const Icon(
+                                      Icons.arrow_back_ios_new_rounded,
+                                      size: 15,
                                     ),
                                   ),
                                 ),
@@ -125,7 +123,7 @@ class _FoodDetailsState extends State<FoodDetails> {
                           ),
                           Expanded(
                             child: FractionallySizedBox(
-                              widthFactor: 0.5,
+                              widthFactor: size.width > 600 ? 0.3 : 0.5,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -223,7 +221,7 @@ class _FoodDetailsState extends State<FoodDetails> {
               child: Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: size.width * 0.0775,
-                  vertical: 20,
+                  vertical: size.width < 600 ? 10 : 20,
                 ),
                 child: Text(
                   food.description,
@@ -239,6 +237,7 @@ class _FoodDetailsState extends State<FoodDetails> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
+                  // clipBehavior: Clip.antiAlias,
                   padding:
                       EdgeInsets.symmetric(horizontal: size.width * 0.0775),
                   margin: const EdgeInsets.only(bottom: 10),
@@ -253,7 +252,7 @@ class _FoodDetailsState extends State<FoodDetails> {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: size.width > 375 ? 2 : 3,
               child: Visibility(
                 visible: food.addOn.isNotEmpty,
                 child: Container(
@@ -263,7 +262,10 @@ class _FoodDetailsState extends State<FoodDetails> {
                 ),
               ),
             ),
-            const Spacer(),
+            // const Spacer(),
+            SizedBox(
+              height: size.width > 375 ? size.height / 12 : 0,
+            ),
             Center(
               child: Container(
                 width: 167,
@@ -302,6 +304,9 @@ class _FoodDetailsState extends State<FoodDetails> {
                   ],
                 ),
               ),
+            ),
+            SizedBox(
+              height: size.width > 380 && size.width < 600 ? 0 : 20,
             ),
           ],
         ),
@@ -401,9 +406,8 @@ class __SelectAddOnState extends State<_SelectAddOn> {
   Widget build(BuildContext context) {
     List<AddOn> addOns = widget.addOns;
 
-    int select = -1;
-
     return ListView.builder(
+      // clipBehavior: Clip.none,
       itemCount: addOns.length,
       itemBuilder: (context, index) {
         return Container(
