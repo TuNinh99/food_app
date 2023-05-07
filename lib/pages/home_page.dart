@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/data/models/categories.dart';
 import 'package:food_app/data/models/ratingInfo.dart';
 import 'package:food_app/data/models/restaurants.dart';
+import 'package:food_app/pages/food_details.dart';
 import 'package:food_app/utils/themes.dart';
 import 'package:food_app/widgets/menu.dart';
 import '../data/models/foods.dart';
@@ -158,119 +159,131 @@ class _PopularItems extends StatelessWidget {
         itemBuilder: (context, index) {
           final Food food = popularItems[index];
           String price = food.price.toStringAsFixed(2);
-          return Container(
-            height: 215,
-            width: 200,
-            margin: const EdgeInsets.only(right: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Image.asset(
-                        food.image,
-                        fit: BoxFit.fill,
-                        width: double.infinity,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 62,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 7,
-                                vertical: 4,
-                              ),
-                              decoration: const BoxDecoration(
-                                color: kColorWhite,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
+          return GestureDetector(
+            onTap: () => Navigator.of(context).pushNamed(
+              '$FoodDetails',
+              arguments: popularItems[index],
+            ),
+            child: Container(
+              height: 215,
+              width: 200,
+              margin: const EdgeInsets.only(right: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                          child: Image.asset(
+                            food.image,
+                            fit: BoxFit.fill,
+                            width: double.infinity,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 62,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 7,
+                                  vertical: 4,
                                 ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset(0, 6),
-                                    blurRadius: 23,
-                                    color: Color.fromRGBO(254, 76, 114, 0.2),
+                                decoration: const BoxDecoration(
+                                  color: kColorWhite,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
                                   ),
-                                ],
-                              ),
-                              child: RichText(
-                                text: TextSpan(
-                                  text: '\$',
-                                  style: PrimaryFont.medium(11).copyWith(
-                                    color: kColorPrimary,
-                                    height: 1.1,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: price,
-                                      style: PrimaryFont.semiBold(20).copyWith(
-                                        color: kColorBlack,
-                                        height: 1.1,
-                                      ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(0, 6),
+                                      blurRadius: 23,
+                                      color: Color.fromRGBO(254, 76, 114, 0.2),
                                     ),
                                   ],
                                 ),
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: '\$',
+                                    style: PrimaryFont.medium(11).copyWith(
+                                      color: kColorPrimary,
+                                      height: 1.1,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: price,
+                                        style:
+                                            PrimaryFont.semiBold(20).copyWith(
+                                          color: kColorBlack,
+                                          height: 1.1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                            CircleAvatar(
-                              radius: 14.5,
-                              backgroundColor: food.isFavourite
-                                  ? kColorPrimary
-                                  : const Color.fromRGBO(255, 255, 255, 0.5),
-                              child: SvgPicture.asset(
-                                'assets/images/ic_heart.svg',
+                              CircleAvatar(
+                                radius: 14.5,
+                                backgroundColor: food.isFavourite
+                                    ? kColorPrimary
+                                    : const Color.fromRGBO(255, 255, 255, 0.5),
+                                child: SvgPicture.asset(
+                                  'assets/images/ic_heart.svg',
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        left: 10,
-                        bottom: -12,
-                        child: Container(
-                          padding: const EdgeInsets.all(0),
-                          child: _RatingBox(ratingInfo: food.ratingInfo),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 17),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            food.name,
-                            style: PrimaryFont.semiBold(14).copyWith(
-                              color: kColorBlack,
-                              height: 1,
-                            ),
+                            ],
                           ),
                         ),
-                        Expanded(
-                          child: Text(
-                            food.description,
-                            style: PrimaryFont.light(12).copyWith(
-                              color: const Color(0XFF9796A1),
-                              height: 1,
-                            ),
+                        Positioned(
+                          left: 10,
+                          bottom: -12,
+                          child: Container(
+                            padding: const EdgeInsets.all(0),
+                            child: _RatingBox(ratingInfo: food.ratingInfo),
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, top: 17),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              food.name,
+                              style: PrimaryFont.semiBold(14).copyWith(
+                                color: kColorBlack,
+                                height: 1,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              food.shortDescription,
+                              style: PrimaryFont.light(12).copyWith(
+                                color: const Color(0XFF9796A1),
+                                height: 1,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },
@@ -753,14 +766,5 @@ class _Header extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

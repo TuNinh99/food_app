@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/pages/food_details.dart';
 import 'package:food_app/pages/home_page.dart';
 
 void main() {
@@ -31,6 +32,7 @@ class FoodApp extends StatelessWidget {
       initialRoute: '$HomePage',
       routes: {
         '$HomePage': (context) => const HomePage(),
+        '$FoodDetails': (context) => const FoodDetails()
       },
     );
   }
