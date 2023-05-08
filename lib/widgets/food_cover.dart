@@ -7,15 +7,18 @@ class FoodCover extends StatelessWidget {
     required this.topLeftWidget,
     required this.image,
     required this.borderRadius,
+    this.bottomLeftWidget,
   });
 
   final String image;
   final Widget topLeftWidget;
   final BorderRadiusGeometry borderRadius;
+  final Widget? bottomLeftWidget;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
+      clipBehavior: Clip.none,
       children: [
         ClipRRect(
           borderRadius: borderRadius,
@@ -47,9 +50,14 @@ class FoodCover extends StatelessWidget {
                   radius: 14,
                   child: Image.asset('assets/images/ic_heart.png'),
                 ),
-              )
+              ),
             ],
           ),
+        ),
+        Positioned(
+          left: 10,
+          bottom: -12,
+          child: bottomLeftWidget!,
         )
       ],
     );

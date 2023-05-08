@@ -1,7 +1,8 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/pages/food_details.dart';
+import 'package:food_app/pages/category_page.dart';
+import 'package:food_app/pages/food_page.dart';
 import 'package:food_app/pages/home_page.dart';
 
 void main() {
@@ -29,10 +30,11 @@ class FoodApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const HomePage(),
-      initialRoute: '$HomePage',
+      initialRoute: '$CategoryPage',
       routes: {
         '$HomePage': (context) => const HomePage(),
-        '$FoodDetailsPage': (context) => const FoodDetailsPage()
+        '$FoodPage': (context) => const FoodPage(),
+        '$CategoryPage': (context) => const CategoryPage(),
       },
     );
   }

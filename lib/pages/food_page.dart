@@ -6,14 +6,14 @@ import 'package:food_app/widgets/button_back.dart';
 import 'package:food_app/widgets/food_cover.dart';
 
 //<------------------------- MAIN WIDGET ------------------------------>
-class FoodDetailsPage extends StatefulWidget {
-  const FoodDetailsPage({super.key});
+class FoodPage extends StatefulWidget {
+  const FoodPage({super.key});
 
   @override
-  State<FoodDetailsPage> createState() => _FoodDetailsPageState();
+  State<FoodPage> createState() => _FoodPageState();
 }
 
-class _FoodDetailsPageState extends State<FoodDetailsPage> {
+class _FoodPageState extends State<FoodPage> {
   @override
   Widget build(BuildContext context) {
     final food = ModalRoute.of(context)!.settings.arguments as Food;

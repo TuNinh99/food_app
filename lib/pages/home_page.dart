@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/data/models/categories.dart';
 import 'package:food_app/data/models/restaurants.dart';
-import 'package:food_app/pages/food_details.dart';
+import 'package:food_app/pages/food_page.dart';
 import 'package:food_app/utils/themes.dart';
 import 'package:food_app/widgets/food_cover.dart';
 import 'package:food_app/widgets/menu.dart';
@@ -162,7 +162,7 @@ class _PopularItems extends StatelessWidget {
           String price = food.price.toStringAsFixed(2);
           return GestureDetector(
             onTap: () => Navigator.of(context).pushNamed(
-              '$FoodDetailsPage',
+              '$FoodPage',
               arguments: popularItems[index],
             ),
             child: Container(
@@ -185,6 +185,7 @@ class _PopularItems extends StatelessWidget {
                             food.image,
                             fit: BoxFit.fill,
                             width: double.infinity,
+                            height: double.infinity,
                           ),
                         ),
                         Padding(
