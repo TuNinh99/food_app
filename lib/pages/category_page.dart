@@ -205,7 +205,7 @@ class _Header extends StatelessWidget {
       height: size.height < 650 ? size.height * 0.35 : size.height * 0.3,
       margin: EdgeInsets.only(
         left: size.width * 0.0775,
-        right: size.width > 600 ? size.width * 0.125 : size.width * 0.17,
+        right: size.width > 600 ? size.width * 0.125 : size.width * 0.135,
       ),
       child: Row(
         children: [
@@ -214,6 +214,7 @@ class _Header extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
+                  onTap: () => Navigator.pop(context),
                   child: const ButtonBack(),
                 ),
                 const SizedBox(

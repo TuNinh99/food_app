@@ -16,8 +16,8 @@ class FoodPage extends StatefulWidget {
 class _FoodPageState extends State<FoodPage> {
   @override
   Widget build(BuildContext context) {
-    final food = ModalRoute.of(context)!.settings.arguments as Food;
-    // final food = popularItems[2];
+    // final food = ModalRoute.of(context)!.settings.arguments as Food;
+    final food = popularItems[2];
 
     final Size size = MediaQuery.of(context).size;
 
@@ -41,6 +41,7 @@ class _FoodPageState extends State<FoodPage> {
                           child: const ButtonBack(),
                           onTap: () => Navigator.pop(context),
                         ),
+                        bottomLeftWidget: const SizedBox(),
                         image: food.image,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(10),

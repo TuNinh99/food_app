@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/data/models/categories.dart';
 import 'package:food_app/data/models/restaurants.dart';
+import 'package:food_app/pages/category_page.dart';
 import 'package:food_app/pages/food_page.dart';
 import 'package:food_app/utils/themes.dart';
 import 'package:food_app/widgets/food_cover.dart';
@@ -194,7 +195,8 @@ class _PopularItems extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: 62,
+                                width: 80,
+                                height: 34,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 7,
                                   vertical: 4,
@@ -212,23 +214,25 @@ class _PopularItems extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: '\$',
-                                    style: PrimaryFont.medium(11).copyWith(
-                                      color: kColorPrimary,
-                                      height: 1.1,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: price,
-                                        style:
-                                            PrimaryFont.semiBold(20).copyWith(
-                                          color: kColorBlack,
-                                          height: 1.1,
-                                        ),
+                                child: Center(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: '\$',
+                                      style: PrimaryFont.medium(11).copyWith(
+                                        color: kColorPrimary,
+                                        height: 1.1,
                                       ),
-                                    ],
+                                      children: [
+                                        TextSpan(
+                                          text: price,
+                                          style:
+                                              PrimaryFont.semiBold(20).copyWith(
+                                            color: kColorBlack,
+                                            height: 1.1,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -295,118 +299,122 @@ class _PopularItems extends StatelessWidget {
 }
 
 class _RestaurantsView extends StatelessWidget {
-  _RestaurantsView({required this.size, required this.restaurant});
+  const _RestaurantsView({required this.size, required this.restaurant});
 
   final Size size;
-  Restaurant restaurant;
+  final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 266,
-      margin: const EdgeInsets.only(right: 15),
-      decoration: const BoxDecoration(
-        color: kColorWhite,
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '$CategoryPage'),
+      child: Container(
+        width: 266,
+        margin: const EdgeInsets.only(right: 15),
+        decoration: const BoxDecoration(
+          color: kColorWhite,
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(15, 15),
+              blurRadius: 30,
+              color: Color.fromRGBO(211, 209, 216, 0.9),
+            )
+          ],
         ),
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(15, 15),
-            blurRadius: 30,
-            color: Color.fromRGBO(211, 209, 216, 0.9),
-          )
-        ],
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            flex: 6,
-            child: FoodCover(
-              image: restaurant.cover,
-              topLeftWidget: RatingBox(ratingInfo: restaurant.ratingInfo),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 6,
+              child: FoodCover(
+                image: restaurant.cover,
+                topLeftWidget: RatingBox(ratingInfo: restaurant.ratingInfo),
+                bottomLeftWidget: const SizedBox(),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              margin: const EdgeInsets.only(left: 13, bottom: 14),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(right: 3),
-                          child: Text(
-                            restaurant.name,
-                            style: PrimaryFont.semiBold(15).copyWith(
-                              color: kColorBlack,
+            Expanded(
+              flex: 4,
+              child: Container(
+                margin: const EdgeInsets.only(left: 13, bottom: 14),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(right: 3),
+                            child: Text(
+                              restaurant.name,
+                              style: PrimaryFont.semiBold(15).copyWith(
+                                color: kColorBlack,
+                              ),
                             ),
                           ),
-                        ),
-                        CircleAvatar(
-                          radius: 5,
-                          backgroundColor: kColorDrakGreen,
-                          child: SvgPicture.asset('assets/images/tick.svg'),
-                        ),
-                        const Spacer(
-                          flex: 2,
-                        )
-                      ],
+                          CircleAvatar(
+                            radius: 5,
+                            backgroundColor: kColorDrakGreen,
+                            child: SvgPicture.asset('assets/images/tick.svg'),
+                          ),
+                          const Spacer(
+                            flex: 2,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        SvgPicture.asset('assets/images/shipper.svg'),
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        Text(
-                          'Free delivery',
-                          style: PrimaryFont.light(12).copyWith(
-                              color: const Color(0XFF7E8392), height: 1.1),
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        SvgPicture.asset(
-                          'assets/images/clock.svg',
-                        ),
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        Text(
-                          restaurant.deliveryTime,
-                          style: PrimaryFont.light(12).copyWith(
-                              color: const Color(0XFF7E8392), height: 1.1),
-                        )
-                      ],
+                    Expanded(
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/images/shipper.svg'),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            'Free delivery',
+                            style: PrimaryFont.light(12).copyWith(
+                                color: const Color(0XFF7E8392), height: 1.1),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          SvgPicture.asset(
+                            'assets/images/clock.svg',
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            restaurant.deliveryTime,
+                            style: PrimaryFont.light(12).copyWith(
+                                color: const Color(0XFF7E8392), height: 1.1),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      clipBehavior: Clip.none,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: restaurant.tags.length,
-                      itemBuilder: (context, index) {
-                        return _Tag(
-                          tagName: restaurant.tags[index],
-                        );
-                      },
-                    ),
-                  )
-                ],
+                    Expanded(
+                      child: ListView.builder(
+                        clipBehavior: Clip.none,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: restaurant.tags.length,
+                        itemBuilder: (context, index) {
+                          return _Tag(
+                            tagName: restaurant.tags[index],
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
