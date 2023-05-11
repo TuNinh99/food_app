@@ -142,7 +142,7 @@ class _AddToCartButton extends StatelessWidget {
               child: CircleAvatar(
                 radius: 20,
                 backgroundColor: kColorWhite,
-                child: SvgPicture.asset('assets/images/icon_menu/ic_cart.svg'),
+                child: SvgPicture.asset('assets/images/icons/ic_cart.svg'),
               ),
             ),
             Center(

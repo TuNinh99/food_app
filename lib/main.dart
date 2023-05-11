@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:food_app/pages/category_page.dart';
 import 'package:food_app/pages/food_page.dart';
 import 'package:food_app/pages/home_page.dart';
+import 'package:food_app/pages/splash_page.dart';
+import 'package:food_app/pages/welcome_page.dart';
 
 void main() {
   runApp(
@@ -30,8 +32,10 @@ class FoodApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const HomePage(),
-      initialRoute: '$HomePage',
+      initialRoute: '$WelcomePage',
       routes: {
+        '$SplashPage': (context) => const SplashPage(),
+        '$WelcomePage': (context) => const WelcomePage(),
         '$HomePage': (context) => const HomePage(),
         '$FoodPage': (context) => const FoodPage(),
         '$CategoryPage': (context) => const CategoryPage(),

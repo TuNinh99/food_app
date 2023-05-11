@@ -62,7 +62,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/categories/
-    - assets/images/icon_menu/
+    - assets/images/icons/
     - assets/images/foods/
     - assets/images/addon/
 

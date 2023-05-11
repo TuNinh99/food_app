@@ -176,7 +176,7 @@ class _LogOutButton extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Image.asset(
-              'assets/images/icon_menu/ic_logout.png',
+              'assets/images/icons/ic_logout.png',
             ),
           ),
           const SizedBox(
@@ -211,7 +211,7 @@ class _MenuItem extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: SvgPicture.asset('assets/images/icon_menu/$image'),
+            child: SvgPicture.asset('assets/images/icons/$image'),
           ),
           Expanded(
             flex: 4,
