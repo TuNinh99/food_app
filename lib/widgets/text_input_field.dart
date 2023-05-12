@@ -76,7 +76,7 @@ class _TextInputFieldState extends State<TextInputField> {
         hoverColor: Colors.transparent,
 
         hintText: widget.hintText,
-        hintStyle: PrimaryFont.medium(17).copyWith(
+        hintStyle: PrimaryFont.light(17).copyWith(
           color: const Color(0XFFC4C4C4),
           height: 1,
         ),

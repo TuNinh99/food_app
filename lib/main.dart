@@ -5,6 +5,7 @@ import 'package:food_app/pages/category_page.dart';
 import 'package:food_app/pages/food_page.dart';
 import 'package:food_app/pages/home_page.dart';
 import 'package:food_app/pages/login_page.dart';
+import 'package:food_app/pages/reset_password_page.dart';
 import 'package:food_app/pages/signup_page.dart';
 import 'package:food_app/pages/splash_page.dart';
 import 'package:food_app/pages/verification_page.dart';
@@ -12,11 +13,11 @@ import 'package:food_app/pages/welcome_page.dart';
 
 void main() {
   runApp(
-    // DevicePreview(
-    //   enabled: !kReleaseMode,
-    //   builder: (context) => const FoodApp(), // Wrap your app
-    // ),
-    const FoodApp(),
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => const FoodApp(), // Wrap your app
+    ),
+    // const FoodApp(),
   );
 }
 
@@ -36,13 +37,14 @@ class FoodApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const HomePage(),
-      initialRoute: '$VerificationPage',
+      initialRoute: '$ResetPasswordPage',
       routes: {
         '$SplashPage': (context) => const SplashPage(),
         '$WelcomePage': (context) => const WelcomePage(),
         '$SignUpPage': (context) => const SignUpPage(),
         '$LoginPage': (context) => const LoginPage(),
         '$VerificationPage': (context) => const VerificationPage(),
+        '$ResetPasswordPage': (context) => const ResetPasswordPage(),
         '$HomePage': (context) => const HomePage(),
         '$FoodPage': (context) => const FoodPage(),
         '$CategoryPage': (context) => const CategoryPage(),
