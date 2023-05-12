@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/utils/common_define.dart';
 import 'package:food_app/utils/themes.dart';
+import 'package:food_app/widgets/text_input_field.dart';
 
 class TextInputGroup extends StatefulWidget {
   const TextInputGroup(
@@ -19,8 +20,6 @@ class TextInputGroup extends StatefulWidget {
 }
 
 class TextInputGroupState extends State<TextInputGroup> {
-  bool _isHidePassword = true;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,59 +46,9 @@ class TextInputGroupState extends State<TextInputGroup> {
               ),
             ],
           ),
-          child: TextFormField(
-            autofocus: true,
-            focusNode: FocusNode(),
-            obscureText: widget.inputType == InputType.Password
-                ? _isHidePassword
-                : false,
-            decoration: InputDecoration(
-              hintText: widget.hintText,
-              suffixIcon: widget.inputType == InputType.Password
-                  ? IconButton(
-                      onPressed: () => setState(() {
-                        _isHidePassword = !_isHidePassword;
-                      }),
-                      icon: Icon(
-                        _isHidePassword
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: const Color(0XFFD0D2D1),
-                        size: 17,
-                      ),
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                    )
-                  : null,
-              hintStyle: PrimaryFont.medium(17).copyWith(
-                color: const Color(0XFFC4C4C4),
-                height: 1,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  width: 1,
-                  style: BorderStyle.solid,
-                  color: Color(0XFFEEEEEE),
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  color: kColorPrimary,
-                ),
-              ),
-              contentPadding: const EdgeInsets.only(
-                left: 20,
-                top: 25,
-                bottom: 22,
-              ),
-            ),
-            style: PrimaryFont.medium(17).copyWith(
-              color: const Color(0XFF111719),
-              height: 1,
-            ),
+          child: TextInputField(
+            inputType: widget.inputType,
+            hintText: widget.hintText,
           ),
         ),
       ],

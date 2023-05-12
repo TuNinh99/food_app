@@ -19,6 +19,7 @@ class ScrollingWhenKeyboardAppear extends StatelessWidget {
         height: size.height,
         child: child,
       ),
+
       // child: ConstrainedBox(
       //   constraints: BoxConstraints(
       //     minWidth: size.width,

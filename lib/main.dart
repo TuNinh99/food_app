@@ -7,6 +7,7 @@ import 'package:food_app/pages/home_page.dart';
 import 'package:food_app/pages/login_page.dart';
 import 'package:food_app/pages/signup_page.dart';
 import 'package:food_app/pages/splash_page.dart';
+import 'package:food_app/pages/verification_page.dart';
 import 'package:food_app/pages/welcome_page.dart';
 
 void main() {
@@ -35,12 +36,13 @@ class FoodApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const HomePage(),
-      initialRoute: '$SignUpPage',
+      initialRoute: '$VerificationPage',
       routes: {
         '$SplashPage': (context) => const SplashPage(),
         '$WelcomePage': (context) => const WelcomePage(),
         '$SignUpPage': (context) => const SignUpPage(),
         '$LoginPage': (context) => const LoginPage(),
+        '$VerificationPage': (context) => const VerificationPage(),
         '$HomePage': (context) => const HomePage(),
         '$FoodPage': (context) => const FoodPage(),
         '$CategoryPage': (context) => const CategoryPage(),
