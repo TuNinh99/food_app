@@ -15,6 +15,7 @@ void main() {
       enabled: !kReleaseMode,
       builder: (context) => const FoodApp(), // Wrap your app
     ),
+    // const FoodApp(),
   );
 }
 

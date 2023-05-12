@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/utils/common_define.dart';
 import 'package:food_app/utils/themes.dart';
+import 'package:food_app/widgets/dismiss_keyboard.dart';
 import 'package:food_app/widgets/header_sign_pages.dart';
+import 'package:food_app/widgets/scrolling_when_keyboard_appear.dart';
 import 'package:food_app/widgets/signin_button_group.dart';
 import 'package:food_app/widgets/text_input_group.dart';
 
@@ -12,73 +14,90 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          HeaderSignPages(
-            size: size,
-            isVisibleBackButton: true,
-          ),
-          const Spacer(),
-          Expanded(
-            flex: 8,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Login',
-                      style: PrimaryFont.semiBold(36.5).copyWith(
-                        color: kColorBlack,
-                        height: 1.2,
-                      ),
-                    ),
-                  ),
-                  const Expanded(
-                    flex: 2,
-                    child: TextInputGroup(
-                      title: 'E-mail',
-                      hintText: 'Your email or phone',
-                      inputType: InputType.Email,
-                    ),
-                  ),
-                  const Expanded(
-                    flex: 2,
-                    child: TextInputGroup(
-                      title: 'Password',
-                      hintText: 'Password',
-                      inputType: InputType.Password,
-                    ),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        'Forgot password?',
-                        style: PrimaryFont.medium(14).copyWith(
-                          color: kColorPrimary,
-                          height: 1,
+      resizeToAvoidBottomInset: false,
+      body: DismissKeyboard(
+        child: ScrollingWhenKeyboardAppear(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HeaderSignPages(
+                size: size,
+                isVisibleBackButton: true,
+              ),
+              size.height < 800
+                  ? const SizedBox(
+                      height: 20,
+                    )
+                  : const Spacer(),
+              Expanded(
+                flex: 8,
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: size.width * 0.0775),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Login',
+                          style: PrimaryFont.semiBold(36.5).copyWith(
+                            color: kColorBlack,
+                            height: 1.2,
+                          ),
                         ),
                       ),
-                    ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const Expanded(
+                        flex: 2,
+                        child: TextInputGroup(
+                          title: 'E-mail',
+                          hintText: 'Your email or phone',
+                          inputType: InputType.Email,
+                        ),
+                      ),
+                      const Expanded(
+                        flex: 2,
+                        child: TextInputGroup(
+                          title: 'Password',
+                          hintText: 'Password',
+                          inputType: InputType.Password,
+                        ),
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Forgot password?',
+                            style: PrimaryFont.medium(14).copyWith(
+                              color: kColorPrimary,
+                              height: 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Expanded(child: _LoginButton()),
+                      const Expanded(child: _QuestionText()),
+                      size.height < 800
+                          ? const SizedBox(
+                              height: 20,
+                            )
+                          : const Spacer(),
+                      const Expanded(
+                        flex: 2,
+                        child: SignInButtonGroup(
+                          titleGroup: 'Sign in with',
+                          lineColor: Color.fromRGBO(179, 179, 179, 0.5),
+                          textColor: Color(0XFF5B5B5E),
+                        ),
+                      )
+                    ],
                   ),
-                  const Expanded(child: _LoginButton()),
-                  const Expanded(child: _QuestionText()),
-                  const Spacer(),
-                  const Expanded(
-                    flex: 2,
-                    child: SignInButtonGroup(
-                      titleGroup: 'Sign in with',
-                      lineColor: Color.fromRGBO(179, 179, 179, 0.5),
-                      textColor: Color(0XFF5B5B5E),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

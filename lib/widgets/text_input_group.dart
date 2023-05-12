@@ -48,9 +48,8 @@ class TextInputGroupState extends State<TextInputGroup> {
             ],
           ),
           child: TextFormField(
-            keyboardType: widget.inputType == InputType.Email
-                ? TextInputType.emailAddress
-                : TextInputType.none,
+            autofocus: true,
+            focusNode: FocusNode(),
             obscureText: widget.inputType == InputType.Password
                 ? _isHidePassword
                 : false,

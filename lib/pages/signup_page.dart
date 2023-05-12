@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/utils/common_define.dart';
 import 'package:food_app/utils/themes.dart';
+import 'package:food_app/widgets/dismiss_keyboard.dart';
 import 'package:food_app/widgets/header_sign_pages.dart';
+import 'package:food_app/widgets/scrolling_when_keyboard_appear.dart';
 import 'package:food_app/widgets/signin_button_group.dart';
 import 'package:food_app/widgets/text_input_group.dart';
 
@@ -13,73 +15,78 @@ class SignUpPage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kColorWhite,
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HeaderSignPages(size: size),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              flex: 10,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Sign Up',
-                        style: PrimaryFont.semiBold(36.5).copyWith(
-                          color: kColorBlack,
-                          height: 1.2,
+      // resizeToAvoidBottomInset: false,
+      body: DismissKeyboard(
+        child: ScrollingWhenKeyboardAppear(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HeaderSignPages(size: size),
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                flex: 10,
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: size.width * 0.0775),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Sign Up',
+                          style: PrimaryFont.semiBold(36.5).copyWith(
+                            color: kColorBlack,
+                            height: 1.2,
+                          ),
                         ),
                       ),
-                    ),
-                    Visibility(
-                      visible: size.height > 800,
-                      child: const Spacer(),
-                    ),
-                    const Expanded(
-                      flex: 2,
-                      child: TextInputGroup(
-                        title: 'Full name',
-                        hintText: 'Your full name',
+                      Visibility(
+                        visible: size.height > 800,
+                        child: const Spacer(),
                       ),
-                    ),
-                    const Expanded(
-                      flex: 2,
-                      child: TextInputGroup(
-                        title: 'E-mail',
-                        hintText: 'Your email',
-                        inputType: InputType.Email,
+                      const Expanded(
+                        flex: 2,
+                        child: TextInputGroup(
+                          title: 'Full name',
+                          hintText: 'Your full name',
+                        ),
                       ),
-                    ),
-                    const Expanded(
-                      flex: 2,
-                      child: TextInputGroup(
-                        title: 'Password',
-                        hintText: 'Your password',
-                        inputType: InputType.Password,
+                      const Expanded(
+                        flex: 2,
+                        child: TextInputGroup(
+                          title: 'E-mail',
+                          hintText: 'Your email',
+                          inputType: InputType.Email,
+                        ),
                       ),
-                    ),
-                    const Expanded(child: _SignInButton()),
-                    const Expanded(child: _QuestionText()),
-                    // const Spacer(),
-                    const Expanded(
-                      flex: 2,
-                      child: SignInButtonGroup(
-                        titleGroup: 'Sign up with',
-                        textColor: Color(0XFF5B5B5E),
-                        lineColor: Color.fromRGBO(179, 179, 179, 0.5),
+                      const Expanded(
+                        flex: 2,
+                        child: TextInputGroup(
+                          title: 'Password',
+                          hintText: 'Your password',
+                          inputType: InputType.Password,
+                        ),
                       ),
-                    ),
-                  ],
+                      const Expanded(child: _SignInButton()),
+                      const Expanded(child: _QuestionText()),
+                      // const Spacer(),
+                      const Expanded(
+                        flex: 2,
+                        child: SignInButtonGroup(
+                          titleGroup: 'Sign up with',
+                          textColor: Color(0XFF5B5B5E),
+                          lineColor: Color.fromRGBO(179, 179, 179, 0.5),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
