@@ -12,11 +12,11 @@ import 'package:food_app/pages/welcome_page.dart';
 
 void main() {
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => const FoodApp(), // Wrap your app
-    ),
-    // const FoodApp(),
+    // DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) => const FoodApp(), // Wrap your app
+    // ),
+    const FoodApp(),
   );
 }
 

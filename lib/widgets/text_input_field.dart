@@ -20,17 +20,42 @@ class TextInputField extends StatefulWidget {
 class _TextInputFieldState extends State<TextInputField> {
   bool _isHidePassword = true;
 
+  TextInputType setKeyboardType(InputType inputType) {
+    switch (inputType) {
+      case InputType.Code:
+      case InputType.Number:
+        return TextInputType.number;
+      case InputType.Email:
+        return TextInputType.emailAddress;
+      case InputType.Password:
+        return TextInputType.visiblePassword;
+      case InputType.Phone:
+        return TextInputType.phone;
+      default:
+        return TextInputType.text;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      //set keyboard type when pess to enter text to text field
+      keyboardType: setKeyboardType(widget.inputType),
+
+      //TextInputAction.next => move the cursor to the next field
+      //TextInputAction.done => close the key board
+      textInputAction: TextInputAction.next,
+
+      //property for cursor
       cursorColor: kColorYellow,
-      cursorHeight: 22.0,
 
       autofocus: true,
-      focusNode: FocusNode(),
+      // focusNode: FocusNode(),
 
       //Set position of text input is center of text field
-      textAlign: TextAlign.center,
+      textAlign: widget.inputType == InputType.Code
+          ? TextAlign.center
+          : TextAlign.left,
 
       //Set max length character of text field
       maxLength: widget.inputType == InputType.Code ? 1 : null,
@@ -42,7 +67,20 @@ class _TextInputFieldState extends State<TextInputField> {
         //hide counter when set maxlength
         counter: const Offstage(),
 
+        //set background color of text field
+        filled: true,
+        fillColor: kColorWhite,
+        focusColor: Colors.transparent,
+
+        //set background color as transparent when mourse hover
+        hoverColor: Colors.transparent,
+
         hintText: widget.hintText,
+        hintStyle: PrimaryFont.medium(17).copyWith(
+          color: const Color(0XFFC4C4C4),
+          height: 1,
+        ),
+
         suffixIcon: widget.inputType == InputType.Password
             ? IconButton(
                 onPressed: () => setState(() {
@@ -58,10 +96,7 @@ class _TextInputFieldState extends State<TextInputField> {
                 hoverColor: Colors.transparent,
               )
             : null,
-        hintStyle: PrimaryFont.medium(17).copyWith(
-          color: const Color(0XFFC4C4C4),
-          height: 1,
-        ),
+
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(
@@ -70,12 +105,14 @@ class _TextInputFieldState extends State<TextInputField> {
             color: Color(0XFFEEEEEE),
           ),
         ),
+
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(
             color: kColorPrimary,
           ),
         ),
+
         contentPadding: widget.inputType == InputType.Code
             ? const EdgeInsets.all(23)
             : const EdgeInsets.only(
@@ -84,6 +121,8 @@ class _TextInputFieldState extends State<TextInputField> {
                 bottom: 22,
               ),
       ),
+
+      // set style of text input
       style: PrimaryFont.medium(widget.inputType == InputType.Code ? 27.2 : 17)
           .copyWith(
         color: widget.inputType == InputType.Code

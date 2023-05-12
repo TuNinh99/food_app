@@ -37,7 +37,6 @@ class TextInputGroupState extends State<TextInputGroup> {
         ),
         Container(
           decoration: const BoxDecoration(
-            color: kColorWhite,
             boxShadow: [
               BoxShadow(
                 offset: Offset(15, 20),

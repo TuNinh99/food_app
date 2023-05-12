@@ -37,86 +37,11 @@ class VerificationPage extends StatelessWidget {
                         flex: 2,
                       ),
                       Expanded(
-                        flex: 5,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Verification Code',
-                              style: PrimaryFont.semiBold(36.5).copyWith(
-                                color: kColorBlack,
-                                height: 1.2,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            Text(
-                              'Please type the verification code sent to $verifyEmail',
-                              style: PrimaryFont.medium(14).copyWith(
-                                color: const Color(0XFF9796A1),
-                                height: 1.3,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: const [
-                                Expanded(
-                                  flex: 3,
-                                  child:
-                                      TextInputField(inputType: InputType.Code),
-                                ),
-                                Spacer(),
-                                Expanded(
-                                  flex: 3,
-                                  child:
-                                      TextInputField(inputType: InputType.Code),
-                                ),
-                                Spacer(),
-                                Expanded(
-                                  flex: 3,
-                                  child:
-                                      TextInputField(inputType: InputType.Code),
-                                ),
-                                Spacer(),
-                                Expanded(
-                                  flex: 3,
-                                  child:
-                                      TextInputField(inputType: InputType.Code),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            Center(
-                              child: RichText(
-                                text: TextSpan(
-                                  text: 'I don’t recevie a code! ',
-                                  style: PrimaryFont.medium(16).copyWith(
-                                    color: const Color(0XFF5B5B5E),
-                                    height: 1,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: 'Please resend',
-                                      style: PrimaryFont.medium(16).copyWith(
-                                        color: kColorPrimary,
-                                        height: 1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        flex: 4,
+                        child: _MainContent(verifyEmail: verifyEmail),
                       ),
                       const Spacer(
-                        flex: 3,
+                        flex: 4,
                       ),
                     ],
                   ),
@@ -126,6 +51,93 @@ class VerificationPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _MainContent extends StatelessWidget {
+  const _MainContent({
+    required this.verifyEmail,
+  });
+
+  final String verifyEmail;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Verification Code',
+          style: PrimaryFont.semiBold(36.5).copyWith(
+            color: kColorBlack,
+            height: 1.2,
+          ),
+        ),
+        const SizedBox(
+          height: 12,
+        ),
+        Text(
+          'Please type the verification code sent to $verifyEmail',
+          style: PrimaryFont.medium(14).copyWith(
+            color: const Color(0XFF9796A1),
+            height: 1.3,
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        SizedBox(
+          height: 65,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
+              Expanded(
+                flex: 3,
+                child: TextInputField(inputType: InputType.Code),
+              ),
+              Spacer(),
+              Expanded(
+                flex: 3,
+                child: TextInputField(inputType: InputType.Code),
+              ),
+              Spacer(),
+              Expanded(
+                flex: 3,
+                child: TextInputField(inputType: InputType.Code),
+              ),
+              Spacer(),
+              Expanded(
+                flex: 3,
+                child: TextInputField(inputType: InputType.Code),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 12,
+        ),
+        Center(
+          child: RichText(
+            text: TextSpan(
+              text: 'I don’t recevie a code! ',
+              style: PrimaryFont.medium(16).copyWith(
+                color: const Color(0XFF5B5B5E),
+                height: 1,
+              ),
+              children: [
+                TextSpan(
+                  text: 'Please resend',
+                  style: PrimaryFont.medium(16).copyWith(
+                    color: kColorPrimary,
+                    height: 1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
