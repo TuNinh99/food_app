@@ -3,17 +3,28 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/utils/themes.dart';
 
 class SignInButtonGroup extends StatelessWidget {
-  const SignInButtonGroup(
-      {super.key, this.textColor = kColorWhite, this.distance = 18});
+  const SignInButtonGroup({
+    super.key,
+    this.titleGroup = '',
+    this.textColor = kColorWhite,
+    this.distance = 18,
+    this.lineColor = kColorWhite,
+  });
 
+  final String titleGroup;
   final Color textColor;
   final double distance;
+  final Color lineColor;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SignInWith(textColor: textColor),
+        TitleGroup(
+          title: titleGroup,
+          textColor: textColor,
+          lineColor: lineColor,
+        ),
         SizedBox(
           height: distance,
         ),
@@ -82,10 +93,17 @@ class _SignInButton extends StatelessWidget {
   }
 }
 
-class SignInWith extends StatelessWidget {
-  const SignInWith({super.key, required this.textColor});
+class TitleGroup extends StatelessWidget {
+  const TitleGroup({
+    super.key,
+    required this.textColor,
+    required this.title,
+    this.lineColor = kColorWhite,
+  });
 
+  final String title;
   final Color textColor;
+  final Color lineColor;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +115,7 @@ class SignInWith extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
-                color: const Color.fromRGBO(255, 255, 255, 0.5),
+                color: lineColor,
                 style: BorderStyle.solid,
               ),
             ),
@@ -106,9 +124,9 @@ class SignInWith extends StatelessWidget {
         Expanded(
           child: Center(
             child: Text(
-              'sign in with',
+              title,
               style: PrimaryFont.medium(16).copyWith(
-                color: kColorWhite,
+                color: textColor,
                 height: 1,
               ),
             ),
@@ -119,12 +137,12 @@ class SignInWith extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
-                color: const Color.fromRGBO(255, 255, 255, 0.5),
+                color: lineColor,
                 style: BorderStyle.solid,
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
