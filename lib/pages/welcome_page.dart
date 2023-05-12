@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/utils/themes.dart';
-import 'package:food_app/widgets/signin_buttonm_group.dart';
+import 'package:food_app/widgets/signin_button_group.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
