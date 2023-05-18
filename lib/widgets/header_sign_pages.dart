@@ -28,7 +28,10 @@ class HeaderSignPages extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(
                 left: size.width * 0.0775, top: size.width * 0.08),
-            child: const ButtonBack(),
+            child: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: const ButtonBack(),
+            ),
           ),
         ),
       ],

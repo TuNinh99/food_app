@@ -1,4 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/pages/home_page.dart';
+import 'package:food_app/pages/signup_page.dart';
 import 'package:food_app/utils/themes.dart';
 import 'package:food_app/widgets/signin_button_group.dart';
 
@@ -11,6 +14,7 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: [
           _SkipButton(size: size),
         ],
@@ -142,6 +146,9 @@ class WelcomePage extends StatelessWidget {
                                 height: 1,
                                 decoration: TextDecoration.underline,
                               ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () =>
+                                    Navigator.pushNamed(context, '$SignUpPage'),
                             ),
                           ],
                         ),
@@ -181,7 +188,7 @@ class _SkipButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => Navigator.pushNamed(context, '$HomePage'),
       child: FractionallySizedBox(
         heightFactor: 0.6,
         child: Container(

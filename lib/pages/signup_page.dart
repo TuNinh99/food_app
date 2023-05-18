@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/pages/login_page.dart';
 import 'package:food_app/utils/common_define.dart';
 import 'package:food_app/utils/themes.dart';
 import 'package:food_app/widgets/dismiss_keyboard.dart';
@@ -108,12 +110,13 @@ class _QuestionText extends StatelessWidget {
           ),
           children: [
             TextSpan(
-              text: 'Login',
-              style: PrimaryFont.medium(14).copyWith(
-                color: kColorPrimary,
-                height: 1,
-              ),
-            ),
+                text: 'Login',
+                style: PrimaryFont.medium(14).copyWith(
+                  color: kColorPrimary,
+                  height: 1,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => Navigator.pushNamed(context, '$LoginPage')),
           ],
         ),
       ),

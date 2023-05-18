@@ -4,6 +4,7 @@ import 'package:food_app/data/models/foods.dart';
 import 'package:food_app/utils/themes.dart';
 import 'package:food_app/widgets/button_back.dart';
 import 'package:food_app/widgets/food_cover.dart';
+import 'package:food_app/widgets/get_amount_food.dart';
 
 //<------------------------- MAIN WIDGET ------------------------------>
 class FoodPage extends StatefulWidget {
@@ -289,86 +290,9 @@ class _FoodInfor extends StatelessWidget {
               ),
               const Expanded(
                 flex: 3,
-                child: _GetAmountOfFood(),
+                child: GetAmountOfFood(),
               ),
             ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _GetAmountOfFood extends StatefulWidget {
-  const _GetAmountOfFood();
-
-  @override
-  State<_GetAmountOfFood> createState() => __GetAmountOfFoodState();
-}
-
-class __GetAmountOfFoodState extends State<_GetAmountOfFood> {
-  int amount = 1;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () => setState(() {
-            amount > 1 ? amount-- : amount = 1;
-          }),
-          child: Container(
-            width: 31,
-            height: 31,
-            decoration: BoxDecoration(
-              color: kColorWhite,
-              border: Border.all(
-                color: kColorPrimary,
-                width: 1,
-              ),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(17),
-              ),
-            ),
-            child: const Icon(
-              Icons.remove,
-              color: kColorPrimary,
-            ),
-          ),
-        ),
-        Expanded(
-          child: Center(
-            child: Text(
-              amount < 10 ? ('0${amount.toString()}') : amount.toString(),
-              style: PrimaryFont.semiBold(16).copyWith(
-                color: kColorBlack,
-                height: 1,
-                letterSpacing: 0.25,
-              ),
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => setState(() {
-            amount++;
-          }),
-          child: Container(
-            width: 31,
-            height: 31,
-            decoration: BoxDecoration(
-              color: kColorPrimary,
-              border: Border.all(
-                color: kColorPrimary,
-                width: 1,
-              ),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(17),
-              ),
-            ),
-            child: const Icon(
-              Icons.add,
-              color: kColorWhite,
-            ),
           ),
         ),
       ],

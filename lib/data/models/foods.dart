@@ -127,3 +127,8 @@ List<Food> popularItems = [
     addOn: [],
   ),
 ];
+
+List<Food> carts = [
+  popularItems[1],
+  popularItems[2],
+];
