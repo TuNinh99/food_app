@@ -8,6 +8,7 @@ import 'package:food_app/pages/food_page.dart';
 import 'package:food_app/pages/home_page.dart';
 import 'package:food_app/pages/login_page.dart';
 import 'package:food_app/pages/orders_upcoming.dart';
+import 'package:food_app/pages/profile_page.dart';
 import 'package:food_app/pages/reset_password_page.dart';
 import 'package:food_app/pages/signup_page.dart';
 import 'package:food_app/pages/splash_page.dart';
@@ -39,7 +40,7 @@ class FoodApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '$FavoritesPage',
+      initialRoute: '$ProfilePage',
       routes: {
         '$SplashPage': (context) => const SplashPage(),
         '$WelcomePage': (context) => const WelcomePage(),
@@ -53,6 +54,7 @@ class FoodApp extends StatelessWidget {
         '$CartPage': (context) => const CartPage(),
         '$OrdersUpcoming': (context) => const OrdersUpcoming(),
         '$FavoritesPage': (context) => const FavoritesPage(),
+        '$ProfilePage': (context) => const ProfilePage(),
       },
     );
   }
