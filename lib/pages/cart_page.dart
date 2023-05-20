@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/data/models/foods.dart';
 import 'package:food_app/utils/themes.dart';
 import 'package:food_app/widgets/get_amount_food.dart';
-import 'package:food_app/widgets/header_back_type.dart';
+import 'package:food_app/widgets/header_bar.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -11,7 +11,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: HeaderBackType(
+      appBar: HeaderBar(
         size: size,
         pageName: 'Cart',
       ),

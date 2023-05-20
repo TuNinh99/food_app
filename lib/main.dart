@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/pages/cart_page.dart';
 import 'package:food_app/pages/category_page.dart';
+import 'package:food_app/pages/favorites_page.dart';
 import 'package:food_app/pages/food_page.dart';
 import 'package:food_app/pages/home_page.dart';
 import 'package:food_app/pages/login_page.dart';
@@ -38,7 +39,7 @@ class FoodApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '$OrdersUpcoming',
+      initialRoute: '$FavoritesPage',
       routes: {
         '$SplashPage': (context) => const SplashPage(),
         '$WelcomePage': (context) => const WelcomePage(),
@@ -51,6 +52,7 @@ class FoodApp extends StatelessWidget {
         '$CategoryPage': (context) => const CategoryPage(),
         '$CartPage': (context) => const CartPage(),
         '$OrdersUpcoming': (context) => const OrdersUpcoming(),
+        '$FavoritesPage': (context) => const FavoritesPage(),
       },
     );
   }

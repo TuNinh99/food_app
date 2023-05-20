@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_app/utils/themes.dart';
 import 'package:food_app/widgets/button_back.dart';
 
-class HeaderBackType extends StatelessWidget implements PreferredSizeWidget {
-  const HeaderBackType({
+class HeaderBar extends StatelessWidget implements PreferredSizeWidget {
+  const HeaderBar({
     super.key,
     required this.size,
     required this.pageName,
@@ -21,7 +21,9 @@ class HeaderBackType extends StatelessWidget implements PreferredSizeWidget {
       child: Row(
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+            },
             child: const ButtonBack(),
           ),
           Expanded(
@@ -38,6 +40,12 @@ class HeaderBackType extends StatelessWidget implements PreferredSizeWidget {
           Visibility(
             visible: isAvatar,
             child: const _Avatar(),
+          ),
+          Visibility(
+            visible: !isAvatar,
+            child: const SizedBox(
+              width: 45,
+            ),
           ),
         ],
       ),

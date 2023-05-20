@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/data/models/orders_infor.dart';
 import 'package:food_app/utils/themes.dart';
-import 'package:food_app/widgets/header_back_type.dart';
+import 'package:food_app/widgets/header_bar.dart';
+import 'package:food_app/widgets/tab_button_box.dart';
 
 class OrdersUpcoming extends StatelessWidget {
   const OrdersUpcoming({super.key});
@@ -13,7 +14,7 @@ class OrdersUpcoming extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: kColorWhite,
-      appBar: HeaderBackType(
+      appBar: HeaderBar(
         size: size,
         pageName: 'My Orders',
         isAvatar: true,
@@ -22,7 +23,10 @@ class OrdersUpcoming extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
-            child: const _TabButtonBox(),
+            child: const TabButtonBox(
+              textLeft: 'Upcoming',
+              textRight: 'History',
+            ),
           ),
           const SizedBox(
             height: 30,
@@ -396,80 +400,6 @@ class _SelectButtonGroup extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _TabButtonBox extends StatelessWidget {
-  const _TabButtonBox();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 55,
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(27.5),
-                ),
-                border: Border.all(
-                  width: 1,
-                  style: BorderStyle.solid,
-                  color: const Color(0XFFF2EAEA),
-                )),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 6,
-              vertical: 4,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: kColorPrimary,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(23.5),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 18),
-                          blurRadius: 40,
-                          color: Color.fromRGBO(211, 209, 216, 0.251),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Upcoming',
-                        style: PrimaryFont.light(14).copyWith(
-                          color: const Color(0XFFFEFEFE),
-                          height: 1,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      'History',
-                      style: PrimaryFont.light(14).copyWith(
-                        color: kColorPrimary,
-                        height: 1,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
