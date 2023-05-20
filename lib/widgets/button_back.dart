@@ -24,7 +24,8 @@ class ButtonBack extends StatelessWidget {
       ),
       child: const Icon(
         Icons.arrow_back_ios_new_rounded,
-        size: 15,
+        size: 12,
+        color: Color(0XFF111719),
       ),
     );
   }

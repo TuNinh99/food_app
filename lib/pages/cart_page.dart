@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/data/models/foods.dart';
 import 'package:food_app/utils/themes.dart';
-import 'package:food_app/widgets/button_back.dart';
 import 'package:food_app/widgets/get_amount_food.dart';
+import 'package:food_app/widgets/header_back_type.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -11,14 +11,15 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: HeaderBackType(
+        size: size,
+        pageName: 'Cart',
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
           child: Column(
             children: [
-              const Expanded(
-                child: _HeaderBackType(),
-              ),
               Expanded(
                 flex: 8,
                 child: Column(
@@ -40,7 +41,7 @@ class CartPage extends StatelessWidget {
               ),
               const _CheckoutButton(),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
             ],
           ),
@@ -55,7 +56,7 @@ class _Bill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         _PriceLine(
           text: 'Subtotal',
@@ -87,7 +88,7 @@ class _BottomLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 13, bottom: 13),
+      margin: const EdgeInsets.symmetric(vertical: 15.0),
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
@@ -141,9 +142,7 @@ class _PriceLine extends StatelessWidget {
 }
 
 class _CheckoutButton extends StatelessWidget {
-  const _CheckoutButton({
-    super.key,
-  });
+  const _CheckoutButton();
 
   @override
   Widget build(BuildContext context) {
@@ -339,33 +338,6 @@ class _PromoCode extends StatelessWidget {
               'Apply',
               style: PrimaryFont.light(16).copyWith(
                 color: kColorWhite,
-                height: 1,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _HeaderBackType extends StatelessWidget {
-  const _HeaderBackType();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () {},
-          child: const ButtonBack(),
-        ),
-        Expanded(
-          child: Center(
-            child: Text(
-              'Cart',
-              style: PrimaryFont.medium(18).copyWith(
-                color: const Color(0XFF111719),
                 height: 1,
               ),
             ),

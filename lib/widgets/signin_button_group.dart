@@ -28,8 +28,8 @@ class SignInButtonGroup extends StatelessWidget {
         SizedBox(
           height: distance,
         ),
-        Row(
-          children: const [
+        const Row(
+          children: [
             Expanded(
               flex: 3,
               child: _SignInButton(

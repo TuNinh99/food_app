@@ -48,7 +48,6 @@ class ResetPasswordPage extends StatelessWidget {
 
 class _MainContent extends StatelessWidget {
   const _MainContent({
-    super.key,
     required this.size,
   });
 
@@ -98,9 +97,7 @@ class _MainContent extends StatelessWidget {
 }
 
 class _ButtonSend extends StatelessWidget {
-  const _ButtonSend({
-    super.key,
-  });
+  const _ButtonSend();
 
   @override
   Widget build(BuildContext context) {

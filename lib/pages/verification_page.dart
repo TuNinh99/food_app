@@ -87,11 +87,11 @@ class _MainContent extends StatelessWidget {
         const SizedBox(
           height: 30,
         ),
-        SizedBox(
+        const SizedBox(
           height: 65,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
+            children: [
               Expanded(
                 flex: 3,
                 child: TextInputField(inputType: InputType.Code),
