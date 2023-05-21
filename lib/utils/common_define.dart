@@ -7,4 +7,5 @@ enum InputType {
   Password,
   Number,
   Code,
+  Address,
 }

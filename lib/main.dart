@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/pages/add_new_address.dart';
 import 'package:food_app/pages/cart_page.dart';
 import 'package:food_app/pages/category_page.dart';
 import 'package:food_app/pages/favorites_page.dart';
@@ -40,7 +41,7 @@ class FoodApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '$ProfilePage',
+      initialRoute: '$AddNewAddress',
       routes: {
         '$SplashPage': (context) => const SplashPage(),
         '$WelcomePage': (context) => const WelcomePage(),
@@ -55,6 +56,7 @@ class FoodApp extends StatelessWidget {
         '$OrdersUpcoming': (context) => const OrdersUpcoming(),
         '$FavoritesPage': (context) => const FavoritesPage(),
         '$ProfilePage': (context) => const ProfilePage(),
+        '$AddNewAddress': (context) => const AddNewAddress(),
       },
     );
   }

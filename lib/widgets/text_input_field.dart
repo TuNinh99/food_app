@@ -31,6 +31,8 @@ class _TextInputFieldState extends State<TextInputField> {
         return TextInputType.visiblePassword;
       case InputType.Phone:
         return TextInputType.phone;
+      case InputType.Address:
+        return TextInputType.streetAddress;
       default:
         return TextInputType.text;
     }
