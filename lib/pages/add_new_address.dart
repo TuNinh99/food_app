@@ -72,7 +72,7 @@ class AddNewAddress extends StatelessWidget {
             ),
             _Distance2Items(
               size: size,
-              ratio: size.height < 700 ? 0.02 : 0.04,
+              ratio: size.height < 700 ? 0.01 : 0.04,
             ),
             const _SaveButton()
           ],

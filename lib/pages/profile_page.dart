@@ -104,16 +104,17 @@ class _BannerAvatar extends StatelessWidget {
               child: Container(
                 clipBehavior: Clip.antiAlias,
                 decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(45),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 15),
-                        blurRadius: 40,
-                        color: Color.fromRGBO(255, 197, 41, 0.3),
-                      )
-                    ]),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(45),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 15),
+                      blurRadius: 40,
+                      color: Color.fromRGBO(255, 197, 41, 0.3),
+                    )
+                  ],
+                ),
                 child: Image.asset('assets/images/big_avatar.png'),
               ),
             ),
