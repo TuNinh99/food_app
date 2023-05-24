@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_app/utils/themes.dart';
 import 'package:food_app/widgets/button_back.dart';
+import 'package:food_app/widgets/rating_star_group.dart';
 
 class RatingPage extends StatelessWidget {
   const RatingPage({super.key});
@@ -13,75 +14,85 @@ class RatingPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            _HeaderAvatar(size: size),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Pizza Hut',
-              style: PrimaryFont.semiBold(20).copyWith(
-                color: kColorBlack,
-                height: 1,
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              '4102  Pretty View Lanenda',
-              style: PrimaryFont.medium(13).copyWith(
-                color: const Color(0XFF9796A1),
-                height: 1,
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            FittedBox(
-              child: Row(
+            Expanded(
+              flex: size.height < 750 ? 4 : 3,
+              child: Column(
                 children: [
-                  Container(
-                    width: 5,
-                    height: 5,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(2.5),
-                      ),
-                      color: Color(0XFF53D776),
-                    ),
+                  _HeaderAvatar(size: size),
+                  const SizedBox(
+                    height: 10,
                   ),
                   Text(
-                    ' Order Delivered',
-                    style: PrimaryFont.light(14).copyWith(
-                      color: const Color(0XFF53D776),
+                    'Pizza Hut',
+                    style: PrimaryFont.semiBold(20).copyWith(
+                      color: kColorBlack,
                       height: 1,
                     ),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    '4102  Pretty View Lanenda',
+                    style: PrimaryFont.medium(13).copyWith(
+                      color: const Color(0XFF9796A1),
+                      height: 1,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  FittedBox(
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 5,
+                          height: 5,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(2.5),
+                            ),
+                            color: Color(0XFF53D776),
+                          ),
+                        ),
+                        Text(
+                          ' Order Delivered',
+                          style: PrimaryFont.light(14).copyWith(
+                            color: const Color(0XFF53D776),
+                            height: 1,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: size.height < 750 ? 10 : 25,
+                    ),
+                    child: Text(
+                      'Please Rate Delivery Service',
+                      style: PrimaryFont.semiBold(18).copyWith(
+                        color: const Color(0XFF111719),
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                  const RatingStarGroup(),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            Text(
-              'Please Rate Delivery Service',
-              style: PrimaryFont.semiBold(18).copyWith(
-                color: const Color(0XFF111719),
-                height: 1,
+            Expanded(
+              flex: 2,
+              child: Column(
+                children: [
+                  _WriteReview(size: size),
+                  SizedBox(
+                    height: size.height < 750 ? 10 : 40,
+                  ),
+                  const _SubmitButton(),
+                ],
               ),
             ),
-            const SizedBox(
-              height: 25,
-            ),
-            const _RatingStarGroup(),
-            const SizedBox(
-              height: 40,
-            ),
-            _WriteReview(size: size),
-            const SizedBox(
-              height: 40,
-            ),
-            const _SubmitButton(),
           ],
         ),
       ),
@@ -90,9 +101,7 @@ class RatingPage extends StatelessWidget {
 }
 
 class _SubmitButton extends StatelessWidget {
-  const _SubmitButton({
-    super.key,
-  });
+  const _SubmitButton();
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +143,7 @@ class _WriteReview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: size.width * 0.0775),
-      height: 168,
+      height: size.height < 750 ? 120 : 168,
       child: TextFormField(
         //2 lines below to set height of textfield
         expands: true,
@@ -179,71 +188,6 @@ class _WriteReview extends StatelessWidget {
   }
 }
 
-class _RatingStarGroup extends StatelessWidget {
-  const _RatingStarGroup();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Good',
-          style: PrimaryFont.medium(22).copyWith(
-            color: kColorPrimary,
-            height: 1,
-          ),
-        ),
-        const SizedBox(
-          height: 14,
-        ),
-        const FittedBox(
-          child: Row(
-            children: [
-              Icon(
-                Icons.star,
-                color: kColorYellow,
-                size: 35,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              Icon(
-                Icons.star,
-                color: kColorYellow,
-                size: 32,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              Icon(
-                Icons.star,
-                color: kColorYellow,
-                size: 32,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              Icon(
-                Icons.star,
-                color: kColorYellow,
-                size: 32,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              Icon(
-                Icons.star_border,
-                color: kColorYellow,
-                size: 32,
-              ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-}
-
 class _HeaderAvatar extends StatelessWidget {
   const _HeaderAvatar({
     required this.size,
@@ -256,7 +200,10 @@ class _HeaderAvatar extends StatelessWidget {
     return Stack(
       children: [
         Center(
-          child: Image.asset('assets/images/pizza_cover_2.png'),
+          child: Image.asset(
+            'assets/images/pizza_cover_2.png',
+            fit: BoxFit.cover,
+          ),
         ),
         Container(
           margin: EdgeInsets.only(
@@ -292,7 +239,7 @@ class _HeaderAvatar extends StatelessWidget {
                       widthFactor: 0.75,
                       heightFactor: 0.75,
                       child: Image.asset(
-                        'assets/images/stores/logo/pizzahut.png',
+                        'assets/images/restaurants/logo/pizzahut.png',
                       ),
                     ),
                   ),

@@ -25,7 +25,7 @@ List<Order> orders = [
   Order(
     orderCode: '264100',
     store: 'Starbuck',
-    logo: 'assets/images/stores/logo/starbuck.png',
+    logo: 'assets/images/restaurants/logo/starbuck.png',
     totalItems: 3,
     price: 12.56,
     deliveryTime: 25,
@@ -34,7 +34,7 @@ List<Order> orders = [
   Order(
     orderCode: '154105',
     store: 'Jimmy John’s ',
-    logo: 'assets/images/stores/logo/Jimmy Johns.png',
+    logo: 'assets/images/restaurants/logo/Jimmy Johns.png',
     totalItems: 3,
     price: 17.10,
     deliveryTime: 30,
@@ -45,7 +45,7 @@ List<Order> orders = [
   Order(
     orderCode: '132069',
     store: 'Subway',
-    logo: 'assets/images/stores/logo/subway.png',
+    logo: 'assets/images/restaurants/logo/subway.png',
     totalItems: 2,
     price: 20.50,
     deliveryTime: 10,
@@ -56,7 +56,7 @@ List<Order> orders = [
   Order(
     orderCode: '232442',
     store: 'Pizzhub',
-    logo: 'assets/images/stores/subway.png',
+    logo: 'assets/images/restaurants/subway.png',
     totalItems: 2,
     price: 8.56,
     deliveryTime: 20,

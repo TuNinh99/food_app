@@ -12,6 +12,8 @@ import 'package:food_app/pages/orders_upcoming.dart';
 import 'package:food_app/pages/profile_page.dart';
 import 'package:food_app/pages/rating_page.dart';
 import 'package:food_app/pages/reset_password_page.dart';
+import 'package:food_app/pages/review_restaurant_page.dart';
+import 'package:food_app/pages/reviews_page.dart';
 import 'package:food_app/pages/signup_page.dart';
 import 'package:food_app/pages/splash_page.dart';
 import 'package:food_app/pages/verification_page.dart';
@@ -42,7 +44,7 @@ class FoodApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '$RatingPage',
+      initialRoute: '$ReviewsPage',
       routes: {
         '$SplashPage': (context) => const SplashPage(),
         '$WelcomePage': (context) => const WelcomePage(),
@@ -59,6 +61,8 @@ class FoodApp extends StatelessWidget {
         '$ProfilePage': (context) => const ProfilePage(),
         '$AddNewAddress': (context) => const AddNewAddress(),
         '$RatingPage': (context) => const RatingPage(),
+        '$ReviewRestaurantPage': (context) => const ReviewRestaurantPage(),
+        '$ReviewsPage': (context) => const ReviewsPage(),
       },
     );
   }
