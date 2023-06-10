@@ -63,6 +63,7 @@ flutter:
     - assets/images/
     - assets/images/categories/
     - assets/images/icons/
+    - assets/images/icons/bottom_navibar_icons/
     - assets/images/foods/
     - assets/images/addon/
     - assets/images/restaurants/

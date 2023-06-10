@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/data/models/categories.dart';
+import 'package:food_app/data/models/foods.dart';
 import 'package:food_app/data/models/restaurants.dart';
 import 'package:food_app/pages/category_page.dart';
 import 'package:food_app/pages/food_page.dart';
 import 'package:food_app/utils/themes.dart';
+import 'package:food_app/widgets/bottom_navigation.dart';
 import 'package:food_app/widgets/food_cover.dart';
 import 'package:food_app/widgets/menu.dart';
 import 'package:food_app/widgets/rating_box.dart';
-import '../data/models/foods.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,10 +19,12 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final orientation = MediaQuery.of(context).orientation;
 
-    return Scaffold(
-      drawer: const Menu(),
-      body: SafeArea(
-        child: ListView(
+    return MediaQuery.removePadding(
+      context: context,
+      child: Scaffold(
+        drawer: const Menu(),
+        bottomNavigationBar: const BottomNavigation(),
+        body: ListView(
           children: [
             Visibility(
               visible: orientation == Orientation.portrait ? false : true,

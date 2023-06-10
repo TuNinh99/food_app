@@ -188,9 +188,7 @@ class _ReviewItem extends StatelessWidget {
 }
 
 class _WriteReviews extends StatelessWidget {
-  const _WriteReviews({
-    super.key,
-  });
+  const _WriteReviews();
 
   @override
   Widget build(BuildContext context) {

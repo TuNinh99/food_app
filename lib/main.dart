@@ -44,7 +44,7 @@ class FoodApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '$ReviewsPage',
+      initialRoute: '$HomePage',
       routes: {
         '$SplashPage': (context) => const SplashPage(),
         '$WelcomePage': (context) => const WelcomePage(),
